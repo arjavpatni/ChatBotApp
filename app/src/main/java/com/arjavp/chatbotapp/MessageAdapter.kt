@@ -14,7 +14,7 @@ import com.arjavp.chatbotapp.Model.MessageUi.Companion.SENT_MSG
 class MessageAdapter(val context: Context, var data: MutableList<MessageUi>): RecyclerView.Adapter<MessageViewHolder<*>>() {
 
     class SentViewHolder(view: View) : MessageViewHolder<MessageUi>(view) {
-        private val messageContent = view?.findViewById<TextView>(R.id.messageText)
+        private val messageContent = view?.findViewById<TextView>(R.id.msg_right)
 
         override fun bind(item: MessageUi) {
             messageContent?.text = item.content
@@ -23,7 +23,7 @@ class MessageAdapter(val context: Context, var data: MutableList<MessageUi>): Re
 
     }
     class ReceivedViewHolder(val view: View) : MessageViewHolder<MessageUi>(view) {
-        private val messageContent = view?.findViewById<TextView>(R.id.messageText)
+        private val messageContent = view?.findViewById<TextView>(R.id.msg_left)
 
         override fun bind(item: MessageUi) {
             messageContent?.text = item.content
