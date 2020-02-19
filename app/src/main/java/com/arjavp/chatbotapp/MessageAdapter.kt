@@ -61,5 +61,4 @@ class MessageAdapter(val context: Context, var data: MutableList<MessageUi>): Re
             else -> throw IllegalArgumentException()
         }
     }
-
 }
