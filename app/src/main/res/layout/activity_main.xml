@@ -22,6 +22,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:background="@android:color/transparent"
+        android:onClick="sendMsgBtnClick"
         android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +30,7 @@
         app:srcCompat="@android:drawable/ic_menu_send" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/messageText"

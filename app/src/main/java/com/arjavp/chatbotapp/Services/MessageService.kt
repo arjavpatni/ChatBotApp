@@ -2,8 +2,9 @@ package com.arjavp.chatbotapp.Services
 
 import android.content.Context
 import android.util.Log
+import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.arjavp.chatbotapp.Model.MessageUi
 import com.arjavp.chatbotapp.Utilities.API_KEY
@@ -15,24 +16,22 @@ object MessageService {
 
     val messages = mutableListOf<MessageUi>()
 
-    fun getMessages(context: Context, complete: (Boolean)-> Unit){
-        val url = "${BASE_URL}?apiKey=${API_KEY}&chatbotID=${chatBotID}&externalID=Arjav&message="
-        val messagesRequest = object: JsonArrayRequest(Method.GET, url, null, Response.Listener { response ->
+    fun getMessages(message: String, context: Context, complete: (Boolean)-> Unit){
+        val url = "${BASE_URL}?apiKey=${API_KEY}&chatbotID=${chatBotID}&externalID=Arjav&message=${message}"
+        val messagesRequest = object: JsonObjectRequest(Request.Method.GET, url, null, Response.Listener {response ->
             try{
-                for(x in 0 until response.length()){
-                    val message = response.getJSONObject(x)
-                    val messageBody = message.getString("message")
-
-                    val newMessage = MessageUi(messageBody, MessageUi.RECEIVED_MSG)
-                    messages.add(newMessage)
-                }
+                val message = response
+                val messageBody = message.getJSONObject("message")
+                val messageContent = messageBody.getString("message")
+                val newMessage = MessageUi(messageContent, MessageUi.RECEIVED_MSG)
+                messages.add(newMessage)
                 complete(true)
             }catch(e: JSONException){
                 Log.d("JSON", e.localizedMessage)
                 complete(false)
             }
         }, Response.ErrorListener {
-            Log.d("ERROR","Could not ")
+            Log.d("ERROR","Could not process.")
             complete(false)
         }){
             override fun getBodyContentType(): String {
