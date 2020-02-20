@@ -30,7 +30,8 @@ object MessageService {
                 complete(false)
             }
         }, Response.ErrorListener {
-            Log.d("ERROR","Could not process.")
+            it.printStackTrace()
+            Log.d("ERROR","${it.networkResponse}")
             complete(false)
         }){
             override fun getBodyContentType(): String {
